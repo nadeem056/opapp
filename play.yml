@@ -1,0 +1,11 @@
+---
+- name: Network Getting Started First Playbook
+  gather_facts: no
+  hosts: all
+  tasks:
+
+    - name: Get Date
+      become: yes
+      shell: netstat -lntp | grep "nginx"
+
+

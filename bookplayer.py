@@ -9,6 +9,8 @@ from ansible.inventory.manager import InventoryManager
 from ansible.vars.manager import VariableManager
 from ansible.plugins.callback import CallbackBase
 
+''' Playbook Executor '''
+
 class ResultCallback(CallbackBase):
     ok_results=''
     fl_results=''

@@ -53,8 +53,5 @@ def playthebook(book,host):
   pbex = PlaybookExecutor(playbooks=['play.yml'], inventory=inventory, variable_manager=variable_manager, loader=loader, passwords={})
   pbex._tqm._stdout_callback = rc
   results = pbex.run()
-  r = pbex._tqm._stdout_callback.ok_results
-  print(">>>>>>>>>>>>>",r)
-  print(r.get('end'))
-  eee=r.get('end')
-  return {"delta": "delta1", "r" : eee }
+  res_dict = pbex._tqm._stdout_callback.ok_results
+  return res_dict

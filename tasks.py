@@ -15,8 +15,4 @@ def add(x,y):
 @celery.task
 def play():
   r=pbk('', '')
-  print(type(r))
-  print(r)
-  # jr=json.loads(r)
-  # print(type(jr))
   return { "stdout": r }

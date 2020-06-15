@@ -12,23 +12,20 @@ from ansible.plugins.callback import CallbackBase
 ''' Playbook Executor '''
 
 class ResultCallback(CallbackBase):
-    ok_results=''
-    fl_results=''
-    ur_results=''
-    hst=None
+    task_results=[]
     def v2_runner_on_ok(self, result, **kwargs):
         host = result._host
-        self.ok_results=result._result
+        self.task_results=result._result
     def v2_runner_on_failed(self, result, ignore_errors=False):
         host = result._host
-        print(json.dumps({host.name: result._result}, indent=4))
+        self.task_results=result._result
     def v2_runner_on_unreachable(self, result):
         host = result._host
-        print(json.dumps({host.name: result._result}, indent=4))
+        self.task_results=result._result
 
 def playthebook(book,host):
-  loader = DataLoader()
-  context.CLIARGS = ImmutableDict(tags={},
+   loader = DataLoader()
+   context.CLIARGS = ImmutableDict(tags={},
 			listtags=False,
 			listtasks=False,
 			listhosts=False,
@@ -49,11 +46,9 @@ def playthebook(book,host):
 			check=False,
 			start_at_task=None)
 
-  rc = ResultCallback()
-  inventory = InventoryManager(loader=loader, sources=('inventory',))
-  variable_manager = VariableManager(loader=loader, inventory=inventory, version_info=CLI.version_info(gitinfo=False))
-  pbex = PlaybookExecutor(playbooks=['play.yml'], inventory=inventory, variable_manager=variable_manager, loader=loader, passwords={})
-  pbex._tqm._stdout_callback = rc
-  results = pbex.run()
-  res_dict = pbex._tqm._stdout_callback.ok_results
-  return res_dict
+   rc = ResultCallback()
+   inventory = InventoryManager(loader=loader, sources=('inventory',))
+   variable_manager = VariableManager(loader=loader, inventory=inventory, version_info=CLI.version_info(gitinfo=False))
+   pbex = PlaybookExecutor(playbooks=['play.yml'], inventory=inventory, variable_manager=variable_manager, loader=loader, passwords={})
+   pbex._tqm._stdout_callback = rc
+   return pbex 

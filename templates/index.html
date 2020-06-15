@@ -4,7 +4,7 @@
     </script>
   <body>
        <h1> Flask + Celery</h1>
-	<form action="/" method="get"><label for="num1">Number A</label> <input id="num1" type="text" name="num1" /><br /> <label for="num1">Number B</label> <input id="num2" name="num2" type="text" /> <input type="submit" name="submit" value="ADD" /></form>
+	<form action="/" method="get"><label for="num1">Number A</label> <input id="num1" type="text" name="num1" /><br /> <label for="num1">Number B</label> <input id="num2" name="num2" type="text" /> <input type="submit" name="submit" value="ADD" /> <input type="submit" name="playbook" value="PlayBook"/> <input type="submit" name="pbcel" value="PlayBook(Celery)"/></form><br>
         <br><h2>{{ result }}</h2>
   </body>
 </html>

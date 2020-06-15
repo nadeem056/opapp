@@ -1,23 +1,33 @@
 from flask import Flask, render_template, request
-from celery import Celery
-from datetime import timedelta
 import tasks
-#from anible import playthebook
+import sys
+from bookplayer import playthebook
 
 
 app = Flask(__name__)
 
 @app.route('/',methods=['GET','POST'])
 def home():
-  if not request.args.get('num1'):
-   return render_template('index.html')
+  if 'submit' in request.args:
+    try:
+       a=int(request.args.get('num1'))
+       b=int(request.args.get('num2'))
+       c=tasks.add.delay(a,b).wait()
+       return render_template('index.html', result=c)
+    except:
+      e = sys.exc_info()[0]
+      return render_template('index.html', result=e )
+  elif 'playbook' in request.args:
+    ex=playthebook('','')
+    rs=ex.run()
+    res=ex._tqm._stdout_callback.task_results
+    #return render_template('index.html', result=res)
+    return res
+  elif 'pbcel' in request.args:
+    res=tasks.play.delay().wait()
+    return render_template('index.html', result=res)
   else:
-    num1=int(str(request.args.get('num1')))
-    num2=int(str(request.args.get('num2')))
-    result=tasks.add.delay(num1,num2)
-    ans=result.wait()
-    #playthebook('play.yml','192.168.56.101')
-    return render_template('index.html', result=ans )
+    return render_template('index.html', result=request.args)
 
 
 if __name__ == '__main__':

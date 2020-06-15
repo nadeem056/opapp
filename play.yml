@@ -6,6 +6,6 @@
 
     - name: Get Date
       become: yes
-      shell: netstat -lntp | grep nginx
+      shell: iptables -nvL
 
 

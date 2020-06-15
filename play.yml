@@ -5,7 +5,7 @@
   tasks:
 
     - name: Get Date
-      become: yes
-      shell: iptables -nvL
+      become: no
+      shell: date
 
 

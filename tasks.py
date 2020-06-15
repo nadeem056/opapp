@@ -23,5 +23,5 @@ def play():
   result=ex.run()
   print(dir(ex._tqm._stdout_callback))  # To View in logs (to be removed)
   task_res=ex._tqm._stdout_callback.task_results
-  print('>>> ', tres)   # To View in logs (to be removed)
+  print(task_res)   # To View in logs (to be removed)
   return { "result": task_res }

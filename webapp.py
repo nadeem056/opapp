@@ -18,11 +18,8 @@ def home():
       e = sys.exc_info()[0]
       return render_template('index.html', result=e )
   elif 'playbook' in request.args:
-    ex=playthebook('','')
-    rs=ex.run()
-    res=ex._tqm._stdout_callback.task_results
-    #return render_template('index.html', result=res)
-    return res
+    res=tasks.play()
+    return render_template('index.html', result=res)
   elif 'pbcel' in request.args:
     res=tasks.play.delay().wait()
     return render_template('index.html', result=res)

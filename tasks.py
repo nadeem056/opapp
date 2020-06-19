@@ -18,7 +18,7 @@ def add(x,y):
 
 @celery.task
 def play():
-  ex=pbk('paly.yml','192.168.56.101')  
+  ex=pbk('play.yml','192.168.56.101')  
   # The  playbook and inventory is hadcoded for now in bookexecutor
   result=ex.run()
   print(dir(ex._tqm._stdout_callback))  # To View in logs (to be removed)
